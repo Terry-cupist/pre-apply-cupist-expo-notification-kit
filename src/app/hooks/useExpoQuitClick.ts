@@ -2,7 +2,7 @@ import {
   ExpoNotificationResponse,
   parseExpoNotificationResponse,
 } from "@cupist/notification-core";
-import { Notifications } from "@shared/notification";
+import { expoModule } from "@shared/notification";
 import { useEffect } from "react";
 import { UseFCMHookBaseProps } from "./types";
 
@@ -12,7 +12,7 @@ export const useExpoQuitResponse = ({
 }: UseFCMHookBaseProps<typeof parseExpoNotificationResponse>) => {
   useEffect(() => {
     (async () => {
-      const response = await Notifications.getLastNotificationResponseAsync();
+      const response = await expoModule.getLastNotificationResponseAsync();
       const message = parseExpoNotificationResponse(
         response as ExpoNotificationResponse,
       );
