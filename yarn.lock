@@ -286,6 +286,11 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.27.1"
 
+"@cupist/notification-core@^1.0.7":
+  version "1.0.8"
+  resolved "http://localhost:4873/@cupist/notification-core/-/notification-core-1.0.8.tgz#a130dc98912a602178a7446ceb63f3c518e326a3"
+  integrity sha512-Fvpz2H7sq1zETOqW9qgV7IsTY3DaNWroKoq6APRsOnmx16PnoBKRTP3oqv0/AlJ5hMs0n07Q2r+9SZ7En9OMPQ==
+
 "@eslint-community/eslint-utils@^4.2.0", "@eslint-community/eslint-utils@^4.4.0":
   version "4.9.0"
   resolved "http://localhost:4873/@eslint-community/eslint-utils/-/eslint-utils-4.9.0.tgz#7308df158e064f0dd8b8fdb58aa14fa2a7f913b3"
@@ -1714,6 +1719,13 @@ expo-constants@~15.4.0:
   integrity sha512-vizE69dww2Vl0PTWWvDmK0Jo2/J+WzdcMZlA05YEnEYofQuhKxTVsiuipf79mSOmFavt4UQYC1UnzptzKyfmiQ==
   dependencies:
     "@expo/config" "~8.5.0"
+
+expo-modules-core@~1.11.14:
+  version "1.11.14"
+  resolved "http://localhost:4873/expo-modules-core/-/expo-modules-core-1.11.14.tgz#e1291661f2b73040382bd9f57c0dd73a98e4f757"
+  integrity sha512-+W+A/jYJdWzA43KEAixhoArEb0EzTsS6T3tObYkZ1EHk8LaBT3hnFant52CnFTeVY4pqv4mgutBua2UQQMAWFA==
+  dependencies:
+    invariant "^2.2.4"
 
 expo-notifications@~0.27.8:
   version "0.27.8"
