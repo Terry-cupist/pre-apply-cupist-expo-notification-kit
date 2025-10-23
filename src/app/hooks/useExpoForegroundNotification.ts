@@ -2,7 +2,7 @@ import {
   ExpoNotification,
   parseExpoForegroundMessage,
 } from "@cupist/notification-core";
-import { expoModule } from "@shared/notification";
+import { ExpoNotificationModule } from "@shared/notification";
 import { useEffect } from "react";
 import { UseFCMHookBaseProps } from "./types";
 
@@ -11,7 +11,7 @@ export const useExpoForegroundNotification = ({
   dependencies = [],
 }: UseFCMHookBaseProps<typeof parseExpoForegroundMessage>) => {
   useEffect(() => {
-    const subscription = expoModule.addNotificationReceivedListener(
+    const subscription = ExpoNotificationModule.addNotificationReceivedListener(
       (notification) => {
         const message = parseExpoForegroundMessage(
           notification as ExpoNotification,

@@ -1,1 +1,1 @@
-export * as expoModule from "expo-notifications";
+export * as ExpoNotificationModule from "expo-notifications";
