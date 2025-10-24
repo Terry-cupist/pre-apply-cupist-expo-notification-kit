@@ -14,10 +14,12 @@ export const useExpoQuitResponse = ({
     (async () => {
       const response =
         await ExpoNotificationModule.getLastNotificationResponseAsync();
-      const message = parseExpoNotificationResponse(
-        response as ExpoNotificationResponse,
-      );
-      onMessage(message);
+      if (response) {
+        const message = parseExpoNotificationResponse(
+          response as ExpoNotificationResponse,
+        );
+        onMessage(message);
+      }
     })();
   }, dependencies);
 };

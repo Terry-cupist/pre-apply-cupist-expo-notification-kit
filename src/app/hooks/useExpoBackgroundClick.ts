@@ -14,10 +14,12 @@ export const useExpoBackgroundResponse = ({
     const subscription =
       ExpoNotificationModule.addNotificationResponseReceivedListener(
         (response) => {
-          const message = parseExpoNotificationResponse(
-            response as ExpoNotificationResponse,
-          );
-          onMessage(message);
+          if (response) {
+            const message = parseExpoNotificationResponse(
+              response as ExpoNotificationResponse,
+            );
+            onMessage(message);
+          }
         },
       );
     return () => subscription.remove();
