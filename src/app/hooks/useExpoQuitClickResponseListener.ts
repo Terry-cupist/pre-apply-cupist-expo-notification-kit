@@ -6,7 +6,7 @@ import { ExpoNotificationModule } from "@shared/notification";
 import { useEffect } from "react";
 import { UseExpoHookCallbackType, UseFCMHookBaseProps } from "./types";
 
-export const useExpoQuitClickListener = ({
+export const useExpoQuitClickResponseListener = ({
   onClickResponse,
   dependencies = [],
 }: UseFCMHookBaseProps & {
