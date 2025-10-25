@@ -1,6 +1,9 @@
 import { DependencyList } from "react";
 
-export interface UseFCMHookBaseProps<T extends (...args: any) => any> {
-  onMessage: (params: ReturnType<T>) => void;
+export type UseExpoHookCallbackType<T extends (...args: any) => any> = (
+  params: ReturnType<T>,
+) => void;
+
+export interface UseFCMHookBaseProps {
   dependencies?: DependencyList;
 }

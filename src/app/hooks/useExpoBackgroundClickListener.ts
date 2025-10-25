@@ -4,12 +4,14 @@ import {
 } from "@cupist/notification-core";
 import { ExpoNotificationModule } from "@shared/notification";
 import { useEffect } from "react";
-import { UseFCMHookBaseProps } from "./types";
+import { UseExpoHookCallbackType, UseFCMHookBaseProps } from "./types";
 
-export const useExpoBackgroundResponse = ({
-  onMessage,
+export const useExpoBackgroundClickListener = ({
+  onResponse,
   dependencies = [],
-}: UseFCMHookBaseProps<typeof parseExpoNotificationResponse>) => {
+}: UseFCMHookBaseProps & {
+  onResponse: UseExpoHookCallbackType<typeof parseExpoNotificationResponse>;
+}) => {
   useEffect(() => {
     const subscription =
       ExpoNotificationModule.addNotificationResponseReceivedListener(
@@ -18,7 +20,7 @@ export const useExpoBackgroundResponse = ({
             const message = parseExpoNotificationResponse(
               response as ExpoNotificationResponse,
             );
-            onMessage(message);
+            onResponse(message);
           }
         },
       );

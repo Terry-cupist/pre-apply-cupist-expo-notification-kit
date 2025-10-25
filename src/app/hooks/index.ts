@@ -1,3 +1,3 @@
-export * from "./useExpoBackgroundClick";
-export * from "./useExpoForegroundNotification";
-export * from "./useExpoQuitClick";
+export * from "./useExpoBackgroundClickListener";
+export * from "./useExpoForegroundNotificationListener";
+export * from "./useExpoQuitClickListener";
