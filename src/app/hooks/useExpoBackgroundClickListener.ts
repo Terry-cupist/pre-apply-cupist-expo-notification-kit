@@ -6,11 +6,13 @@ import { ExpoNotificationModule } from "@shared/notification";
 import { useEffect } from "react";
 import { UseExpoHookCallbackType, UseFCMHookBaseProps } from "./types";
 
-export const useExpoBackgroundClickListener = ({
-  onResponse,
+export const useExpoBackgroundClickResponseListener = ({
+  onClickResponse,
   dependencies = [],
 }: UseFCMHookBaseProps & {
-  onResponse: UseExpoHookCallbackType<typeof parseExpoNotificationResponse>;
+  onClickResponse: UseExpoHookCallbackType<
+    typeof parseExpoNotificationResponse
+  >;
 }) => {
   useEffect(() => {
     const subscription =
@@ -20,7 +22,7 @@ export const useExpoBackgroundClickListener = ({
             const message = parseExpoNotificationResponse(
               response as ExpoNotificationResponse,
             );
-            onResponse(message);
+            onClickResponse(message);
           }
         },
       );

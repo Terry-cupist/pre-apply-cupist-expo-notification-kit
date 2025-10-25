@@ -7,10 +7,12 @@ import { useEffect } from "react";
 import { UseExpoHookCallbackType, UseFCMHookBaseProps } from "./types";
 
 export const useExpoQuitClickListener = ({
-  onResponse,
+  onClickResponse,
   dependencies = [],
 }: UseFCMHookBaseProps & {
-  onResponse: UseExpoHookCallbackType<typeof parseExpoNotificationResponse>;
+  onClickResponse: UseExpoHookCallbackType<
+    typeof parseExpoNotificationResponse
+  >;
 }) => {
   useEffect(() => {
     (async () => {
@@ -20,7 +22,7 @@ export const useExpoQuitClickListener = ({
         const message = parseExpoNotificationResponse(
           response as ExpoNotificationResponse,
         );
-        onResponse(message);
+        onClickResponse(message);
       }
     })();
   }, dependencies);
