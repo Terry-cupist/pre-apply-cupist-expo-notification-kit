@@ -42,14 +42,12 @@ export const useExpoForegroundNotificationListener = (
           refreshDeepLinkApis(validNotificationData.deepLink);
         }
 
-        if (validNotificationData.content) {
-          const validNotificationUIData = getValidNotificationUIData
-            ? getValidNotificationUIData(validNotificationData)
-            : validNotificationData;
+        const validNotificationUIData = getValidNotificationUIData
+          ? getValidNotificationUIData(validNotificationData)
+          : validNotificationData;
 
-          if (validNotificationUIData) {
-            openNotificationUI(validNotificationData);
-          }
+        if (validNotificationUIData) {
+          openNotificationUI(validNotificationData);
         }
 
         refreshBadgeCount();
