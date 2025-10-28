@@ -21,8 +21,12 @@ export const useExpoForegroundNotificationListener = (
     getValidNotificationData,
     dependencies = [],
   } = props ?? {};
-  const { refreshDeepLinkApis, refreshBadgeCount, openNotificationUI } =
-    useNotificationManage(props);
+  const {
+    refreshDeepLinkApis,
+    refreshBadgeCount,
+    getValidNotificationUIData,
+    openNotificationUI,
+  } = useNotificationManage(props);
 
   useEffect(() => {
     const subscription = ExpoNotificationModule.addNotificationReceivedListener(
@@ -39,7 +43,13 @@ export const useExpoForegroundNotificationListener = (
         }
 
         if (validNotificationData.content) {
-          openNotificationUI(validNotificationData);
+          const validNotificationUIData = getValidNotificationUIData
+            ? getValidNotificationUIData(validNotificationData)
+            : validNotificationData;
+
+          if (validNotificationUIData) {
+            openNotificationUI(validNotificationData);
+          }
         }
 
         refreshBadgeCount();
