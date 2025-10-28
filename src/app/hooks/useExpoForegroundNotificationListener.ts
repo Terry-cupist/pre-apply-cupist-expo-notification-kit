@@ -19,13 +19,19 @@ export const useExpoForegroundNotificationListener = (
   const {
     onNotification,
     getValidNotificationData,
+    openToast: localOpenToast,
     dependencies = [],
   } = props ?? {};
   const {
     refreshDeepLinkApis,
     refreshBadgeCount,
-    getValidNotificationUIData,
-    openNotificationUI,
+    checkIsToastOpenValid,
+    beforeOpenNotificationUI,
+    openToast,
+    onToastPress,
+    afterOpenToast,
+    navigateToLink,
+    sendNotificationUserEvent,
   } = useNotificationManage(props);
 
   useEffect(() => {
@@ -42,12 +48,26 @@ export const useExpoForegroundNotificationListener = (
           refreshDeepLinkApis(validNotificationData.deepLink);
         }
 
-        const validNotificationUIData = getValidNotificationUIData
-          ? getValidNotificationUIData(validNotificationData)
-          : validNotificationData;
+        if (localOpenToast) {
+          localOpenToast?.(validNotificationData);
+        } else if (checkIsToastOpenValid?.(validNotificationData)) {
+          beforeOpenNotificationUI?.(validNotificationData);
 
-        if (validNotificationUIData) {
-          openNotificationUI(validNotificationData);
+          openToast({
+            ...validNotificationData,
+            onPress: () => {
+              onToastPress?.(validNotificationData);
+
+              if (validNotificationData.type) {
+                sendNotificationUserEvent(validNotificationData.type);
+              }
+              if (validNotificationData.deepLink) {
+                navigateToLink(validNotificationData.deepLink);
+              }
+
+              afterOpenToast?.(validNotificationData);
+            },
+          });
         }
 
         refreshBadgeCount();
