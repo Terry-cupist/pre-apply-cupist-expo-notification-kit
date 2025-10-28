@@ -21,7 +21,7 @@ export const useExpoForegroundNotificationListener = (
     getValidNotificationData,
     dependencies = [],
   } = props ?? {};
-  const { refreshDeepLinkApis, refreshBadgeCount, openToast } =
+  const { refreshDeepLinkApis, refreshBadgeCount, openNotificationUI } =
     useNotificationManage(props);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export const useExpoForegroundNotificationListener = (
         }
 
         if (validNotificationData.content) {
-          openToast(validNotificationData);
+          openNotificationUI(validNotificationData);
         }
 
         refreshBadgeCount();
