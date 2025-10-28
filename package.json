@@ -2,7 +2,13 @@
   "name": "@cupist/expo-notification-kit",
   "version": "1.0.11",
   "description": "Cupist expo notification module.",
-  "main": "dist",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "yarn build:tsc && yarn build:alias",
