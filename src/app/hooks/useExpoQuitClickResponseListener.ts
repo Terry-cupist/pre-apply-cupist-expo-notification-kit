@@ -1,28 +1,48 @@
 import {
   ExpoNotificationResponse,
   parseExpoNotificationResponse,
+  useNotificationManage,
 } from "@cupist/notification-core";
 import { ExpoNotificationModule } from "@shared/notification";
 import { useEffect } from "react";
 import { UseExpoHookCallbackType, UseFCMHookBaseProps } from "./types";
 
-export const useExpoQuitClickResponseListener = ({
-  onClickResponse,
-  dependencies = [],
-}: UseFCMHookBaseProps & {
-  onClickResponse: UseExpoHookCallbackType<
-    typeof parseExpoNotificationResponse
-  >;
-}) => {
+export const useExpoQuitClickResponseListener = (
+  props?: UseFCMHookBaseProps<typeof parseExpoNotificationResponse> & {
+    onClickResponse?: UseExpoHookCallbackType<
+      typeof parseExpoNotificationResponse
+    >;
+  },
+) => {
+  const {
+    onClickResponse,
+    getValidNotificationData,
+    dependencies = [],
+  } = props ?? {};
+  const { sendNotificationUserEvent, refreshDeepLinkApis, navigateToLink } =
+    useNotificationManage(props);
   useEffect(() => {
     (async () => {
       const response =
         await ExpoNotificationModule.getLastNotificationResponseAsync();
       if (response) {
-        const message = parseExpoNotificationResponse(
+        const parsedResponse = parseExpoNotificationResponse(
           response as ExpoNotificationResponse,
         );
-        onClickResponse(message);
+        const validResponseData = getValidNotificationData
+          ? getValidNotificationData(parsedResponse)
+          : parsedResponse;
+
+        if (validResponseData.type) {
+          sendNotificationUserEvent(validResponseData.type);
+        }
+
+        if (validResponseData.deepLink) {
+          refreshDeepLinkApis(validResponseData.deepLink);
+          navigateToLink(validResponseData.deepLink);
+        }
+
+        onClickResponse?.(validResponseData);
       }
     })();
   }, dependencies);
