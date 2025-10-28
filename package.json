@@ -1,6 +1,6 @@
 {
   "name": "@cupist/expo-notification-kit",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Cupist expo notification module.",
   "main": "dist",
   "scripts": {
