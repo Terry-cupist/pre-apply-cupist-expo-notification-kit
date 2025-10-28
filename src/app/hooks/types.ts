@@ -6,7 +6,7 @@ export type UseExpoHookCallbackType<T extends (...args: any) => any> = (
 ) => void;
 
 export interface UseFCMHookBaseProps<T extends (...args: any) => any>
-  extends NotificationManageContextValue {
+  extends Partial<NotificationManageContextValue> {
   getValidNotificationData?: (notification: ReturnType<T>) => ReturnType<T>;
   dependencies?: DependencyList;
 }
