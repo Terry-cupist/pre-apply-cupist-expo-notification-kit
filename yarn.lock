@@ -286,10 +286,10 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.27.1"
 
-"@cupist/notification-core@^1.0.25":
-  version "1.0.25"
-  resolved "http://localhost:4873/@cupist/notification-core/-/notification-core-1.0.25.tgz#de32d56e597f64133b4ef27f415b9a92fa359fd0"
-  integrity sha512-pEdcbQbIKBvzpTUPlRKserGiw7AWjxxfY4M+QZyJ9QdP8PAXqbWKOx/PC46L85ChzfeovbF7rIk1R+zBtZ1q/A==
+"@cupist/notification-core@^1.0.26":
+  version "1.0.26"
+  resolved "http://localhost:4873/@cupist/notification-core/-/notification-core-1.0.26.tgz#495b6e6fd9e0645f0b18618f567e2d53f6e36abf"
+  integrity sha512-jRnhGanZdQyGBz/Q/4StnjVwWBMo4utUwUtGUW51XtkpYr9G29mnurRn9SJLHjIx9XXsGZJ2DumSVnzVEHFH/Q==
 
 "@eslint-community/eslint-utils@^4.2.0", "@eslint-community/eslint-utils@^4.4.0":
   version "4.9.0"
