@@ -19,17 +19,17 @@ export const useExpoForegroundNotificationListener = (
   const {
     onNotification,
     getValidNotificationData,
-    openToast: localOpenToast,
+    openNotificationUI: localOpenNotificationUI,
     dependencies = [],
   } = props ?? {};
   const {
     refreshDeepLinkApis,
     refreshBadgeCount,
-    checkIsToastOpenValid,
+    checkIsNotificationOpenValid,
     beforeOpenNotificationUI,
-    openToast,
-    onToastPress,
-    afterOpenToast,
+    openNotificationUI,
+    onNotificationUIPress,
+    afterOpenNotificationUI,
     navigateToLink,
     sendNotificationUserEvent,
   } = useNotificationManage(props);
@@ -48,26 +48,32 @@ export const useExpoForegroundNotificationListener = (
           await refreshDeepLinkApis(validNotificationData.deepLink);
         }
 
-        if (localOpenToast) {
-          localOpenToast?.(validNotificationData);
-        } else if (checkIsToastOpenValid?.(validNotificationData)) {
+        const isNotificationUIOpenValid =
+          checkIsNotificationOpenValid?.(validNotificationData) ?? true;
+        if (isNotificationUIOpenValid) {
           beforeOpenNotificationUI?.(validNotificationData);
 
-          openToast({
-            ...validNotificationData,
-            onPress: () => {
-              onToastPress?.(validNotificationData);
+          if (localOpenNotificationUI) {
+            localOpenNotificationUI?.(validNotificationData);
 
-              if (validNotificationData.type) {
-                sendNotificationUserEvent(validNotificationData.type);
-              }
-              if (validNotificationData.deepLink) {
-                navigateToLink(validNotificationData.deepLink);
-              }
+            afterOpenNotificationUI?.(validNotificationData);
+          } else {
+            openNotificationUI({
+              ...validNotificationData,
+              onPress: () => {
+                onNotificationUIPress?.(validNotificationData);
 
-              afterOpenToast?.(validNotificationData);
-            },
-          });
+                if (validNotificationData.type) {
+                  sendNotificationUserEvent(validNotificationData.type);
+                }
+                if (validNotificationData.deepLink) {
+                  navigateToLink(validNotificationData.deepLink);
+                }
+
+                afterOpenNotificationUI?.(validNotificationData);
+              },
+            });
+          }
         }
 
         refreshBadgeCount();
