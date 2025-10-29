@@ -19,19 +19,19 @@ export const useExpoForegroundNotificationListener = (
   const {
     onNotification,
     getValidNotificationData,
-    openNotificationUI: localOpenNotificationUI,
+    onRenderNotification: localOnRenderNotification,
     dependencies = [],
   } = props ?? {};
   const {
-    refreshDeepLinkApis,
-    refreshBadgeCount,
-    checkIsNotificationOpenValid,
-    beforeOpenNotificationUI,
-    openNotificationUI,
-    onNotificationUIPress,
-    afterOpenNotificationUI,
-    navigateToLink,
-    sendNotificationUserEvent,
+    onRefreshQueriesForDeepLink,
+    onRefreshBadgeCount,
+    shouldShowNotification,
+    onBeforeShowNotification,
+    onRenderNotification,
+    onNotificationPress,
+    onAfterShowNotification,
+    onNavigateToDeepLink,
+    onLogNotificationEvent,
   } = useNotificationManage(props);
 
   useEffect(() => {
@@ -45,38 +45,38 @@ export const useExpoForegroundNotificationListener = (
           : parsedNotification;
 
         if (validNotificationData.deepLink) {
-          await refreshDeepLinkApis(validNotificationData.deepLink);
+          await onRefreshQueriesForDeepLink(validNotificationData.deepLink);
         }
 
         const isNotificationUIOpenValid =
-          checkIsNotificationOpenValid?.(validNotificationData) ?? true;
+          shouldShowNotification?.(validNotificationData) ?? true;
         if (isNotificationUIOpenValid) {
-          beforeOpenNotificationUI?.(validNotificationData);
+          onBeforeShowNotification?.(validNotificationData);
 
-          if (localOpenNotificationUI) {
-            localOpenNotificationUI?.(validNotificationData);
+          if (localOnRenderNotification) {
+            localOnRenderNotification?.(validNotificationData);
 
-            afterOpenNotificationUI?.(validNotificationData);
+            onAfterShowNotification?.(validNotificationData);
           } else {
-            openNotificationUI({
+            onRenderNotification({
               ...validNotificationData,
               onPress: () => {
-                onNotificationUIPress?.(validNotificationData);
+                onNotificationPress?.(validNotificationData);
 
                 if (validNotificationData.type) {
-                  sendNotificationUserEvent(validNotificationData.type);
+                  onLogNotificationEvent(validNotificationData.type);
                 }
                 if (validNotificationData.deepLink) {
-                  navigateToLink(validNotificationData.deepLink);
+                  onNavigateToDeepLink(validNotificationData.deepLink);
                 }
 
-                afterOpenNotificationUI?.(validNotificationData);
+                onAfterShowNotification?.(validNotificationData);
               },
             });
           }
         }
 
-        refreshBadgeCount();
+        onRefreshBadgeCount();
 
         onNotification?.(validNotificationData);
       },

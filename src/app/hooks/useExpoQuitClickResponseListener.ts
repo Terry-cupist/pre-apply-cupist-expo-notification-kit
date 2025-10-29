@@ -19,7 +19,7 @@ export const useExpoQuitClickResponseListener = (
     getValidNotificationData,
     dependencies = [],
   } = props ?? {};
-  const { sendNotificationUserEvent, refreshDeepLinkApis, navigateToLink } =
+  const { onLogNotificationEvent, onRefreshQueriesForDeepLink, onNavigateToDeepLink } =
     useNotificationManage(props);
   useEffect(() => {
     (async () => {
@@ -34,12 +34,12 @@ export const useExpoQuitClickResponseListener = (
           : parsedResponse;
 
         if (validResponseData.type) {
-          sendNotificationUserEvent(validResponseData.type);
+          onLogNotificationEvent(validResponseData.type);
         }
 
         if (validResponseData.deepLink) {
-          await refreshDeepLinkApis(validResponseData.deepLink);
-          navigateToLink(validResponseData.deepLink);
+          await onRefreshQueriesForDeepLink(validResponseData.deepLink);
+          onNavigateToDeepLink(validResponseData.deepLink);
         }
 
         onClickResponse?.(validResponseData);

@@ -19,8 +19,11 @@ export const useExpoBackgroundClickResponseListener = (
     getValidNotificationData,
     dependencies = [],
   } = props ?? {};
-  const { sendNotificationUserEvent, refreshDeepLinkApis, navigateToLink } =
-    useNotificationManage(props);
+  const {
+    onLogNotificationEvent,
+    onRefreshQueriesForDeepLink,
+    onNavigateToDeepLink,
+  } = useNotificationManage(props);
   useEffect(() => {
     const subscription =
       ExpoNotificationModule.addNotificationResponseReceivedListener(
@@ -34,18 +37,12 @@ export const useExpoBackgroundClickResponseListener = (
               : parsedResponse;
 
             if (validNotificationData.type) {
-              sendNotificationUserEvent(validNotificationData.type);
+              onLogNotificationEvent(validNotificationData.type);
             }
 
             if (validNotificationData.deepLink) {
-              console.log("navigateToLink", validNotificationData.deepLink);
-              navigateToLink(validNotificationData.deepLink);
-              console.log(
-                "refreshDeepLinkApis",
-                validNotificationData.deepLink,
-              );
-              await refreshDeepLinkApis(validNotificationData.deepLink);
-              console.log("background click deep link process done");
+              await onRefreshQueriesForDeepLink(validNotificationData.deepLink);
+              onNavigateToDeepLink(validNotificationData.deepLink);
             }
 
             onClickResponse?.(validNotificationData);
