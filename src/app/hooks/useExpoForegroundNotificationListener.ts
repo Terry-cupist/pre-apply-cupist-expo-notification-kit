@@ -36,7 +36,7 @@ export const useExpoForegroundNotificationListener = (
 
   useEffect(() => {
     const subscription = ExpoNotificationModule.addNotificationReceivedListener(
-      (notification) => {
+      async (notification) => {
         const parsedNotification = parseExpoForegroundMessage(
           notification as ExpoNotification,
         );
@@ -45,7 +45,7 @@ export const useExpoForegroundNotificationListener = (
           : parsedNotification;
 
         if (validNotificationData.deepLink) {
-          refreshDeepLinkApis(validNotificationData.deepLink);
+          await refreshDeepLinkApis(validNotificationData.deepLink);
         }
 
         if (localOpenToast) {

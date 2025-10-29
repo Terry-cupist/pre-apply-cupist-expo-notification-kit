@@ -24,7 +24,7 @@ export const useExpoBackgroundClickResponseListener = (
   useEffect(() => {
     const subscription =
       ExpoNotificationModule.addNotificationResponseReceivedListener(
-        (response) => {
+        async (response) => {
           if (response) {
             const parsedResponse = parseExpoNotificationResponse(
               response as ExpoNotificationResponse,
@@ -38,7 +38,7 @@ export const useExpoBackgroundClickResponseListener = (
             }
 
             if (validNotificationData.deepLink) {
-              refreshDeepLinkApis(validNotificationData.deepLink);
+              await refreshDeepLinkApis(validNotificationData.deepLink);
               navigateToLink(validNotificationData.deepLink);
             }
 

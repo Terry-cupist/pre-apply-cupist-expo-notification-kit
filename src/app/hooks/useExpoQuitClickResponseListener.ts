@@ -38,7 +38,7 @@ export const useExpoQuitClickResponseListener = (
         }
 
         if (validResponseData.deepLink) {
-          refreshDeepLinkApis(validResponseData.deepLink);
+          await refreshDeepLinkApis(validResponseData.deepLink);
           navigateToLink(validResponseData.deepLink);
         }
 
