@@ -38,8 +38,14 @@ export const useExpoBackgroundClickResponseListener = (
             }
 
             if (validNotificationData.deepLink) {
-              await refreshDeepLinkApis(validNotificationData.deepLink);
+              console.log("navigateToLink", validNotificationData.deepLink);
               navigateToLink(validNotificationData.deepLink);
+              console.log(
+                "refreshDeepLinkApis",
+                validNotificationData.deepLink,
+              );
+              await refreshDeepLinkApis(validNotificationData.deepLink);
+              console.log("background click deep link process done");
             }
 
             onClickResponse?.(validNotificationData);
