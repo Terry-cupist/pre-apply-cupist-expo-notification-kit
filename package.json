@@ -24,7 +24,7 @@
   "author": "cupist-terry",
   "license": "ISC",
   "dependencies": {
-    "@cupist/notification-core": "^1.0.26",
+    "@cupist/notification-core": "^1.0.27",
     "expo-modules-core": "~1.11.14",
     "expo-notifications": "~0.27.8"
   },
